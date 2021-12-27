@@ -2,22 +2,27 @@
 
 # Start the session
 session_start();
- 
+
+# Load environment variables and slim framework
+use Dotenv\Dotenv;
+use \Slim\App;
+require_once __DIR__.'/vendor/autoload.php';
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 require_once "services/UserService.php";
 require_once "services/PlantService.php";
 require_once "services/DrugService.php";
 require_once "services/LocationService.php";
 require_once "services/CargoService.php";
 require_once "services/DataService.php";
-require_once "services/TimeCapsuleService.php"; 
-
-# Require the Slim Framework 
-require_once "vendor/autoload.php";
+require_once "services/TimeCapsuleService.php";
 
 # Authorization
 require_once "middleware/Authentication.php";
 require_once "middleware/Authorization.php";
- 
+
+
 
 # Configuration Options to display errors * ONLY FOR DEVELOPMENT MODE * 
 $options = [
@@ -53,6 +58,7 @@ $config["errorHandler"] = function ($config) {
 
 # Instantiate a Slim application
 $app = new Slim\App($config);
+
 
 # Middleware to set the default headers of the app's responses.
 $app->add(function($request, $response, $next) {

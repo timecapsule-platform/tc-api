@@ -1,22 +1,14 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (https://slimframework.com)
  *
- * @link      https://github.com/slimphp/Slim
- * @copyright Copyright (c) 2011-2016 Josh Lockhart
- * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
+ * @license https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Slim;
 
-use Closure;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
-/**
- * A routable, middleware-aware object
- *
- * @package Slim
- * @since   3.0.0
- */
 abstract class Routable
 {
     use CallableResolverAwareTrait;
@@ -50,6 +42,16 @@ abstract class Routable
     protected $pattern;
 
     /**
+     * @param string   $pattern
+     * @param callable $callable
+     */
+    public function __construct($pattern, $callable)
+    {
+        $this->pattern = $pattern;
+        $this->callable = $callable;
+    }
+
+    /**
      * Get the middleware registered for the group
      *
      * @return callable[]
@@ -74,7 +76,7 @@ abstract class Routable
      *
      * @param ContainerInterface $container
      *
-     * @return self
+     * @return static
      */
     public function setContainer(ContainerInterface $container)
     {
@@ -85,18 +87,23 @@ abstract class Routable
     /**
      * Prepend middleware to the middleware collection
      *
-     * @param mixed $callable The callback routine
+     * @param callable|string $callable The callback routine
      *
      * @return static
      */
     public function add($callable)
     {
-        $callable = $this->resolveCallable($callable);
-        if ($callable instanceof Closure) {
-            $callable = $callable->bindTo($this->container);
-        }
-
-        $this->middleware[] = $callable;
+        $this->middleware[] = new DeferredCallable($callable, $this->container);
         return $this;
+    }
+
+    /**
+     * Set the route pattern
+     *
+     * @param string $newPattern
+     */
+    public function setPattern($newPattern)
+    {
+        $this->pattern = $newPattern;
     }
 }

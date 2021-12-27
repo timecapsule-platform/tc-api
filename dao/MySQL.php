@@ -4,18 +4,18 @@ require_once "exceptions/ApplicationException.php";
 
 class MySQL {
 
-    private $connection = null;
-    private $host = 'localhost';
-    private $db = 'timecapsule';
-    private $username = 'root';
-    private $password = '';
-
     # Establish a new connection to the Database
     public function connect()
     {
+	$host = $_ENV['DB_HOST'];
+	$port = $_ENV['DB_PORT'];
+	$db = $_ENV['DB_NAME'];
+	$username = $_ENV['DB_USER'];
+	$password = $_ENV['DB_PASSWORD'];
+
         try 
         {
-            $this->connection = new PDO("mysql:host=$this->host;dbname=$this->db;charset=utf8", $this->username, $this->password);
+            $this->connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $username, $password);
          
             // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
