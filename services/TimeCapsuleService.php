@@ -15,11 +15,15 @@ class TimeCapsuleService extends Service {
     public function __construct() 
     {
         parent::__construct();
+
+	$db = $_ENV['MONGODB_NAME'];
+    	$username = $_ENV['MONGODB_USER'];
+    	$password = $_ENV['MONGODB_PASSWORD'];
         
         try
         {
             // connect to mongodb
-             $this->connection = new MongoClient();
+             $this->connection = new MongoDB\Client("mongodb://$username:$password@localhost:27017");
         }
         catch (Exception $e)
         {
@@ -27,8 +31,7 @@ class TimeCapsuleService extends Service {
         }
         
         // select a database
-        $this->db = $this->connection->selectDB("timecapsule");
-        //$this->db = $this->connection->timecapsule;
+        $this->db = $this->connection->$db;
 
         // select a collection
         $this->collection = $this->db->timecapsules;
