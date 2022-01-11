@@ -66,7 +66,7 @@ class TimeCapsuleService extends Service {
     
   public function deleteTimeCapsule($id)
   {  
-        $this->collection->deleteOne(array('_id' => $id));
+        $this->collection->deleteOne(array('_id' => new MongoDB\BSON\ObjectId($id)));
     
         return;
   }
