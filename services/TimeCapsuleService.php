@@ -59,14 +59,14 @@ class TimeCapsuleService extends Service {
   public function createTimeCapsule($item)
   {  
         //$item["date_created"] = date("d-m-Y h:i:sa");
-        $this->collection->insert($item);
+        $this->collection->insertOne($item);
     
         return $item;
   }
     
   public function deleteTimeCapsule($id)
   {  
-        $this->collection->remove(array('_id' => new MongoId($id)));
+        $this->collection->deleteOne(array('_id' => $id));
     
         return;
   }
