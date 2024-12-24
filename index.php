@@ -121,7 +121,9 @@ $app->get("/users", function ($request, $response, $args) {
             return $response->getBody()->write(json_encode($users));
         })
         # this action requires authentication
-        ->add(new Authentication());
+        ->add(new Authentication())
+        # this action requires authorization. Clearance Level: admin
+        ->add(new Authorization("Administrator"));
 
 # Create new User
 $app->post("/users", function ($request, $response, $args) {
@@ -149,7 +151,9 @@ $app->get("/users/{id}", function ($request, $response, $args) {
 
             return $response->getBody()->write(json_encode($user));
         })
-        ->add(new Authentication());
+        ->add(new Authentication())
+        ->add(new MyUserAuthorization());
+
 
 # Update specific User
 $app->put("/users/{id}", function ($request, $response, $args) {
