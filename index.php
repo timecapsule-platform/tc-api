@@ -25,14 +25,14 @@ require_once "middleware/MyUserAuthorization.php";
 
 
 
-# Configuration Options to display errors * ONLY FOR DEVELOPMENT MODE * 
-$options = [
-    "settings" => [
-        "displayErrorDetails" => true
-    ],
-];
-# The configuration object  to use as an argument in slim app  * ONLY FOR DEVELOPMENT MODE * 
-$config = new \Slim\Container($options);
+//# Configuration Options to display errors * ONLY FOR DEVELOPMENT MODE *
+//$options = [
+//    "settings" => [
+//        "displayErrorDetails" => true
+//    ],
+//];
+//# The configuration object  to use as an argument in slim app  * ONLY FOR DEVELOPMENT MODE *
+//$config = new \Slim\Container($options);
 
 
 # Error Handler
