@@ -23,7 +23,7 @@ class TimeCapsuleService extends Service {
         try
         {
             // connect to mongodb
-             $this->connection = new MongoDB\Client("mongodb://$username:$password@localhost:27017");
+             $this->connection = new MongoDB\Client("mongodb://$username:$password@localhost:27017/timecapsule");
         }
         catch (Exception $e)
         {
