@@ -21,6 +21,7 @@ require_once "services/TimeCapsuleService.php";
 # Authorization
 require_once "middleware/Authentication.php";
 require_once "middleware/Authorization.php";
+require_once "middleware/MyUserAuthorization.php";
 
 
 
