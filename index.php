@@ -181,44 +181,6 @@ $app->delete("/users/{id}", function ($request, $response, $args) {
         ->add(new Authentication())
         ->add(new Authorization("Administrator"));
 
-
-
-
-
-
-/********************************** Subscription API *************************************************/
-
-# Get Subscribers
-$app->get("/subscribers", function ($request, $response, $args) {
-
-            $subscriptionService = new SubscriptionService();
-            $subscribers = $subscriptionService->getSubscribers();
-
-            return $response->getBody()->write(json_encode($subscribers));
-        })
-        # this action requires authentication
-        ->add(new Authentication());
-
-
-# Get Subscriber by id
-$app->get("/subscribers/{id}", function ($request, $response, $args) {
-
-            $subscriptionService = new SubscriptionService();
-            $subscriber = $subscriptionService->getSubscriber($args["id"]);
-
-            return $response->getBody()->write(json_encode($subscriber));
-        })
-        # this action requires authentication
-        ->add(new Authentication());
-        
-
-
-
-
-
-
-
-  
 /**********************************  Companies API  *************************************************/
 
 # Get Companies
