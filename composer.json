@@ -2,6 +2,6 @@
     "require": {
         "vlucas/phpdotenv": "^5.4",
         "slim/slim": "3.*",
-        "mongodb/mongodb": "^1.11"
+        "mongodb/mongodb": "1.20.0"
     }
 }
